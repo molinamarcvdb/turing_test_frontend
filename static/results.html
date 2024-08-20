@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Results</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div id="results-container">
+        <h1>Evaluation Results</h1>
+        <p id="sensitivity_gan">Sensitivity GAN: </p>
+        <p id="specificity_gan">Specificity GAN: </p>
+        <p id="sensitivity_diff">Sensitivity Diffusion: </p>
+        <p id="specificity_diff">Specificity Diffusion:</p>
+        <p id="total_evaluations">Total Evaluations: </p>
+        <p id="mean_duration">Mean Duration (s): </p>
+        <p id="std_duration">Standard Deviation of Duration (s): </p>
+        <img id="realism_plot" alt="Realism Scores Distribution Plot">
+    </div>
+    <script>
+        // On results page load
+        window.addEventListener('load', () => {
+            const metrics = JSON.parse(sessionStorage.getItem('finalMetrics'));
+
+            if (metrics) {
+                document.getElementById('sensitivity_gan').textContent = `Sensitivity GAN: ${metrics.sensitivity_gan}`;
+                document.getElementById('specificity_gan').textContent = `Specificity GAN: ${metrics.specificity_gan}`;
+                document.getElementById('sensitivity_diff').textContent = `Sensitivity Diffusion: ${metrics.sensitivity_diff}`;
+                document.getElementById('specificity_diff').textContent = `Specificity Diffusion: ${metrics.specificity_diff}`;
+                document.getElementById('total_evaluations').textContent = `Total Evaluations: ${metrics.total_evaluations}`;
+                document.getElementById('mean_duration').textContent = `Mean Duration (s): ${metrics.mean_duration}`;
+                document.getElementById('std_duration').textContent = `Standard Deviation of Duration (s): ${metrics.std_duration}`;
+
+                // Display the plot
+                const plotImage = document.getElementById('realism_plot');
+                plotImage.src = `data:image/png;base64,${metrics.realism_plot}`;
+            } else {
+                alert('No metrics found. Please try finalizing the evaluation again.');
+            }
+        });
+    </script>
+</body>
+</html>

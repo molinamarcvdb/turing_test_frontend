@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Test for Medical Images</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="image-container">
+            <!-- Image will be loaded here by JavaScript -->
+        </div>
+        <div id="controls">
+            <div id="evaluation-form">
+                <label for="realism_score">Realism Score:</label>
+                
+                <!-- Continuous Slider -->
+                <div class="slider-container">
+                    <input type="range" id="realismSlider" min="0" max="100" step="1" value="50" oninput="updateSliderValue(this.value)">
+                    <span id="sliderValue">50</span> <!-- Dynamic value display -->                    
+                    <div class="labels">
+                        <span class="label-left">Overall Unrealistic</span>
+                        <span class="label-center">Overall Realistic</span>
+                        <span class="label-right">Can't Tell</span>
+                    </div>
+                    
+                </div>
+                
+                <br>
+                <label for="buttons">Is it real?:</label>
+                <div id="buttons">
+                    <button id="fake-button" onclick="markAsFake()">Fake</button>
+                    <button id="real-button" onclick="markAsReal()">Real</button>
+                </div>
+                <br>
+                <label for="calcification-buttons">Does the image contain a calcification?:</label>
+                <div id="calcification-buttons">
+                    <button id="calcification-yes-button" onclick="markCalcificationSeen(true)">Yes</button>
+                    <button id="calcification-no-button" onclick="markCalcificationSeen(false)">No</button>
+                </div>
+                <br>
+                <button onclick="submitEvaluation()">Submit</button>
+                <button id="finalize-button" onclick="finalizeEvaluation()">Finalize Evaluation</button> <!-- New button for finalization -->
+            </div>
+            <div id="metrics" style="display:none;">
+                <h3>Metrics</h3>
+                <p id="sensitivity">Sensitivity: </p>
+                <p id="specificity">Specificity: </p>
+                <p id="total_evaluations">Total Evaluations: </p>
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+
+    <!-- Include this CSS within your /static/styles.css or inline as below -->
+    <style>
+        .slider-container {
+            width: 140%;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #realismSlider {
+            width: 100%;
+            background: linear-gradient(to right, red, yellow, green);
+        }
+
+        .labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .label-left, .label-center, .label-right {
+            font-size: 14px;
+        }
+
+        #dynamicLabel {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</body>
+</html>

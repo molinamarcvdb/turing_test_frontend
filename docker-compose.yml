@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    image: molinamarc/learnings:turingv1.0
+    container_name: turing
+    ports:
+      - "8000:8000"
+    environment:
+      - AZURE_STORAGE_CONNECTION_STRING=
+      - CONTAINER_NAME=
+      - TOTAL_IMAGES=421
+
